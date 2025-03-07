@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit
 object RetrofitClient {
 
     private const val BASE_URL = "https://f5hfnd2eb6.apigw.ntruss.com/custom/v1/37636/1ff001d2a243205ad4d84609e4dcbc517854ef5f1e3babdc1d2e9b2779cd77fd/"
-    private const val OCR_SECRET_KEY = "dlZjT0llQU53YW1jQXFMbFZnRkdyUVV0WGNhaVZSQU8="
+    private const val OCR_SECRET_KEY = ""
 
     private val client = OkHttpClient.Builder()
         .addInterceptor(Interceptor { chain ->
