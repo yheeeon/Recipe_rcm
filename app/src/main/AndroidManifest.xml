@@ -34,6 +34,8 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
+
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.recipe_rcm.fileprovider"
@@ -53,7 +55,7 @@
             <!-- SplashActivity 설정 -->
         <activity
             android:name=".Splash"
-            android:label="Splash"
+            android:label="@string/app_name"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
