@@ -7,6 +7,6 @@ import retrofit2.http.POST
 
 interface OcrService {
     @Headers("Content-Type: application/json")
-    @POST("document/receipt") // ✅ URL 경로 확인
+    @POST("document/receipt")
     suspend fun getOcrResult(@Body requestBody: RequestBody): Response<OcrResponse>
 }
