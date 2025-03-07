@@ -29,4 +29,12 @@
             android:layout_height="wrap_content"
             android:text="수정"
             android:padding="8dp" />
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="삭제"
+            android:backgroundTint="#989D98"
+            android:layout_marginStart="8dp" />
     </LinearLayout>
