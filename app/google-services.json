@@ -1,0 +1,43 @@
+{
+  "project_info": {
+    "project_number": "993098357659",
+    "project_id": "recipercm",
+    "storage_bucket": "recipercm.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993098357659:android:14f2e4396265d556851f3e",
+        "android_client_info": {
+          "package_name": "com.example.recipe_rcm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDL605xd3vmTr1I-3wLxZBfJxj2CjEU_MA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1",
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null"
+  },
+  "ingredients": {
+    "OFQZmTk0aoAs4kdJGs7": {
+      "count": "",
+      "expiration": "",
+      "expirationStatus": "",
+      "name": "",
+      "storageStatus": ""
+    }
+  }
+
+}

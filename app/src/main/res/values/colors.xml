@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFF</color>
+    <!-- res/values/colors.xml -->
+    <color name="toggle_selected">#589D58</color> <!-- 선택된 색상 (예: 보라색) -->
+    <color name="toggle_unselected">#AFAFAF</color><!-- 비선택 색상 (예: 연한 보라색) -->
+
+    <color name="colorRefrigerated">#4CAF50</color> <!-- 녹색: 냉장 -->
+    <color name="colorFrozen">#2196F3</color> <!-- 파란색: 냉동 -->
+    <color name="colorRoomTemperature">#FFEB3B</color> <!-- 노란색: 실온보관 -->
+    <color name="colorDefault">#FFFFFF</color> <!-- 기본 배경색 -->
+
+
+
+
+</resources>

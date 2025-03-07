@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/nameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="재료명 입력" />
+    <EditText
+        android:id="@+id/countEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="수량 입력" />
+
+    <EditText
+        android:id="@+id/expirationEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="유통기한 선택"
+        android:focusable="false" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="보관 상태"
+        android:paddingTop="8dp"
+        android:textSize="16sp" />
+
+    <ToggleButton
+        android:id="@+id/toggleRefrigerated"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textOn="냉장"
+        android:textOff="냉장" />
+
+    <ToggleButton
+        android:id="@+id/toggleFrozen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textOn="냉동"
+        android:textOff="냉동" />
+
+    <ToggleButton
+        android:id="@+id/toggleRoomTemperature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textOn="실온보관"
+        android:textOff="실온보관" />
+</LinearLayout>

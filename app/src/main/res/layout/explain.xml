@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="352dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#589D58"
+        android:text="시작하기"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/img_lastfresh"
+        android:layout_width="688dp"
+        android:layout_height="411dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/lastfresh1"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="-25dp" />
+
+    <TextView
+        android:id="@+id/text_explain"
+        android:layout_width="346dp"
+        android:layout_height="202dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="37dp"
+        android:maxLines="7"
+        android:text="Last Fresh는 \n냉장고 속 재료를 한 눈에 보고 \n관리할 수 있으며,\n냉장고 안에 있는 재료의 유통기한을 \n넘기지 않고 레시피를 추천하여 재료를 \n사용하는 어플리케이션입니다."
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_lastfresh"
+        app:layout_constraintVertical_bias="0.316" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

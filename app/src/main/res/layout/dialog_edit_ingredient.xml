@@ -1,0 +1,73 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <EditText
+        android:id="@+id/tvIngredientName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="재료명"
+        android:textSize="16sp"
+        android:padding="8dp" />
+
+    <EditText
+        android:id="@+id/etIngredientCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="수량 입력"
+        android:textSize="16sp"
+        android:padding="8dp" />
+
+    <!-- 유통기한을 선택할 TextView -->
+    <TextView
+        android:id="@+id/tvExpiration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="유통기한 선택"
+        android:textSize="16sp"
+        android:padding="8dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="left" /> <!-- 텍스트를 가운데 정렬 -->
+
+    <!-- 보관 방법을 선택할 RadioGroup -->
+    <RadioGroup
+        android:id="@+id/radioGroupStorage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <RadioButton
+            android:id="@+id/radioRefrigerated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="냉장" />
+
+        <RadioButton
+            android:id="@+id/radioFrozen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="냉동" />
+
+        <RadioButton
+            android:id="@+id/radioRoomTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="상온" />
+    </RadioGroup>
+
+    <!-- 확인 버튼 -->
+    <Button
+        android:id="@+id/btnConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#589D58"
+        android:padding="8dp"
+        android:text="확인"
+        android:textSize="14sp" />
+</LinearLayout>

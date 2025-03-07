@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:background="#FFFFFF"
+    android:layout_marginBottom="8dp"> <!-- 아이템 간 간격 추가 -->
+
+    <!-- 재료명 -->
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="재료명"
+        android:textSize="18sp"/>
+
+    <!-- 수량 -->
+    <TextView
+        android:id="@+id/textViewcount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="수량"
+        android:textSize="18sp"/>
+
+    <!-- 유통기한 -->
+    <TextView
+        android:id="@+id/textViewExpiration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="유통기한"
+        android:textSize="16sp"/>
+
+    <!-- 유통기한 상태 -->
+    <TextView
+        android:id="@+id/expirationStatusTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="유통기한 상태"
+        android:textColor="#FF0000"
+        android:textSize="14sp"/>
+
+    <!-- 보관 상태 -->
+    <TextView
+        android:id="@+id/textViewStorageStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="보관 상태"
+        android:textColor="#0031FF"
+        android:textSize="16sp"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+
+        <!-- 수정 버튼 -->
+        <Button
+            android:id="@+id/btn_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#DBDEDB"
+            android:text="수정"
+            android:textColor="#589D58"
+            android:textStyle="bold" />
+
+        <!-- 삭제 버튼 -->
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#589D58"
+            android:text="삭제"/>
+    </LinearLayout>
+</LinearLayout>
