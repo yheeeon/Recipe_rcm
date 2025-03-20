@@ -83,7 +83,7 @@ class Home : Fragment() {
             onError: (String) -> Unit
         ) {
             Thread {
-                val key = "" // API 키 입력
+                val key = "" // ✅ 식약처 API KEY
                 val serviceId = "COOKRCP01"
                 val dataType = "json"
                 val startIdx = "1"

@@ -82,9 +82,9 @@
             android:exported="true"
             tools:ignore="Instantiatable" />
 
-        <activity
-            android:name=".ClovaOCR.OcrResultActivity">
-        </activity>
+        <activity android:name="com.example.recipe_rcm.ClovaOCR.OcrResultActivity"
+            tools:ignore="MissingClass" />
+
 
         <activity android:name=".ClovaOCR.DialogEditIngredientActivity"/>
 
