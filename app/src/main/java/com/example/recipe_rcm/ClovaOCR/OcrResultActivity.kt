@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.text.Html
 import android.util.Base64
 import android.util.Log
 import android.widget.ImageView
@@ -143,7 +142,7 @@ class OcrResultActivity : AppCompatActivity() {
 
                 val body = RequestBody.create("application/json".toMediaTypeOrNull(), jsonBody)
                 val request = Request.Builder()
-                    .url("/ocr") // ✅Flask 서버 URL
+                    .url("http://192.168.242.126:5000/ocr") // ✅Flask 서버 URL, ex:"http://000.000.00.000:5000/ocr"
                     .post(body)
                     .build()
 
@@ -181,7 +180,7 @@ class OcrResultActivity : AppCompatActivity() {
                 val classifiedProducts = jsonObject.getAsJsonArray("classified_products")
                 classifiedProducts?.forEach { product ->
                     val productObject = product.asJsonObject
-                    val name = productObject.get("title").asString
+                    val name = productObject.get("original_name").asString
                     val foodItem = OcrItem(name, "1")  // 기본적으로 "1" 개수 설정
                     foodItemList.add(foodItem)
                 }
