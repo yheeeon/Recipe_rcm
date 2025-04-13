@@ -1,70 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".RecipeAPI.Home">
 
-    <!-- 알람 아이콘 -->
-    <ImageView
-        android:id="@+id/alram"
-        android:layout_width="50dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="32dp"
-        android:contentDescription="알람 아이콘"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.897"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/alram" />
-
-    <!-- Main Text 1 -->
-    <TextView
-        android:id="@+id/main_text1"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:text="Last Fresh"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@id/alram"
-        app:layout_constraintHorizontal_bias="0.059"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#FFFFFF">
 
-    <!-- ImageView -->
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="369dp"
-        android:layout_height="193dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/main_img"
-        app:layout_constraintTop_toBottomOf="@id/main_text1" />
+        <!-- 상단 헤더 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="16dp">
 
-    <!-- TextView: Random Recipe -->
-    <TextView
-        android:id="@+id/main_text2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Random Recipe"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@id/alram"
-        app:layout_constraintHorizontal_bias="0.059"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView" />
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="🍳Last Fresh"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="28sp"
+                android:textStyle="bold" />
 
-    <!-- Horizontal RecyclerView for Random Recipes -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recipeRecyclerView"
-        android:layout_width="413dp"
-        android:layout_height="247dp"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_text2" />
+            <ImageView
+                android:id="@+id/alram"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="알람"
+                android:src="@drawable/alram" />
+        </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- 나이 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="나이:"
+                android:textSize="16sp"
+                android:gravity="center_vertical" />
+
+            <EditText
+                android:id="@+id/ageInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <!-- 성별 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="성별:"
+                android:textSize="16sp" />
+
+            <RadioGroup
+                android:id="@+id/genderGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="남성" />
+
+                <RadioButton
+                    android:id="@+id/radioFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="여성" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <!-- 키 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="키 (cm):"
+                android:textSize="16sp"
+                android:gravity="center_vertical" />
+
+            <EditText
+                android:id="@+id/heightInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="numberDecimal" />
+        </LinearLayout>
+
+        <!-- 몸무게 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="몸무게 (kg):"
+                android:textSize="16sp"
+                android:gravity="center_vertical" />
+
+            <EditText
+                android:id="@+id/weightInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="numberDecimal" />
+        </LinearLayout>
+
+        <!-- 활동량 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="활동량:"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/activityLevelSpinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <!-- 재료 입력 -->
+        <EditText
+            android:id="@+id/ingredientsEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="재료를 입력하세요 (예: 돼지고기, 양파)"
+            android:inputType="text" />
+
+        <!-- 추천 버튼 -->
+        <Button
+            android:id="@+id/recommendButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="한 끼 추천 레시피 보기"
+            android:backgroundTint="#589D58"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="16dp" />
+
+        <!-- 레시피 리스트를 가로로 스크롤하는 RecyclerView로 설정 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recipeRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal" />  <!-- 중요한 부분: orientation 속성을 가로로 설정 -->
+
+
+
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

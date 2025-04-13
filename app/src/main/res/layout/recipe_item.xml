@@ -91,7 +91,6 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:contentDescription="Add to Favorites"
             android:padding="8dp"
-
             android:textColor="#FF0000" />
     </LinearLayout>
 </ScrollView>

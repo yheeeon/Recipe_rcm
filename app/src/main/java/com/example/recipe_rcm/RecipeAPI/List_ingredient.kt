@@ -66,7 +66,7 @@ class List_ingredient : Fragment() {
         }
 
         // 레시피 추천 버튼 클릭 이벤트
-        val ingredientsEditText = view.findViewById<EditText>(R.id.ingredientsEditText)
+        /*val ingredientsEditText = view.findViewById<EditText>(R.id.ingredientsEditText)
         val recommendButton = view.findViewById<Button>(R.id.btn_recommend_recipe)
         recommendButton.setOnClickListener {
             val ingredients = ingredientsEditText.text.toString()
@@ -75,7 +75,7 @@ class List_ingredient : Fragment() {
             } else {
                 fetchRecipes(ingredients)
             }
-        }
+        }*/
 
         // 재료 추가 버튼 클릭 이벤트
         val addButton = view.findViewById<Button>(R.id.btn_add)
@@ -87,7 +87,7 @@ class List_ingredient : Fragment() {
         return view
     }
 
-    private fun fetchRecipes(ingredients: String) {
+    /*private fun fetchRecipes(ingredients: String) {
         Home.fetchRecipesByIngredients(
             ingredients = ingredients,
             onResult = { recipes ->
@@ -108,7 +108,7 @@ class List_ingredient : Fragment() {
                 }
             }
         )
-    }
+    }*/
 
     private fun setupRecipeRecyclerView(recipes: List<Recipe>) {
         val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView)

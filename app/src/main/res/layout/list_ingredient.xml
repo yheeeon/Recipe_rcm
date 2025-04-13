@@ -6,22 +6,22 @@
     android:orientation="vertical"
     android:background="#F5F5F5">
 
-    <!-- 재료 작성-->
+    <!-- 재료 작성
     <EditText
         android:id="@+id/ingredientsEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="쉼표로 구분해서 재료를 입력하세요." />
 
-    <!-- 레시피 추천 버튼 -->
-    <Button
+    레시피 추천 버튼
+     <Button
         android:id="@+id/btn_recommend_recipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="#E2E0E0"
         android:text="레시피 보기"
         android:textColor="#589D58"
-        android:textStyle="bold" />
+        android:textStyle="bold" />-->
     <!-- 재료 추가 버튼 -->
     <Button
         android:id="@+id/btn_add"

@@ -1,6 +1,7 @@
 package com.example.recipe_rcm.ApiService.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.recipe_rcm.ApiService.Recipe
+import com.example.recipe_rcm.ApiService.RecipeDetailActivity
 import com.example.recipe_rcm.R
 
 class RecipeAdapter(
@@ -36,7 +38,9 @@ class RecipeAdapter(
 
         // 이미지 클릭 이벤트
         holder.recipeImage.setOnClickListener {
-            onItemClick(recipe)
+            val intent = Intent(context, RecipeDetailActivity::class.java)
+            intent.putExtra("recipe", recipe)  // Recipe 객체를 Intent로 전달
+            context.startActivity(intent)
         }
     }
 
