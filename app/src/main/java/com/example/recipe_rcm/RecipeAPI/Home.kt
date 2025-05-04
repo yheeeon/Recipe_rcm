@@ -23,11 +23,6 @@ class Home : Fragment() {
     private var _binding: HomeBinding? = null
     private val binding get() = _binding!!
 
-    // 활동 수준
-    private val activityLevels = listOf("앉아서 일함", "가벼운 활동", "보통 활동", "격렬한 활동")
-    private val activityMultipliers = listOf(1.2, 1.375, 1.55, 1.725)
-
-    // RecipeAdapter를 위한 레시피 리스트
     private val recipes = mutableListOf<Recipe>()
     private lateinit var recipeAdapter: RecipeAdapter
 
@@ -37,27 +32,20 @@ class Home : Fragment() {
     ): View {
         _binding = HomeBinding.inflate(inflater, container, false)
 
-        // Spinner 설정
-        val spinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, activityLevels)
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.activityLevelSpinner.adapter = spinnerAdapter
-
-        // RecyclerView 설정: 가로로 스크롤되는 레이아웃 매니저
+        // RecyclerView 설정
         recipeAdapter = RecipeAdapter(requireContext(), recipes) { recipe ->
-            // 레시피 클릭 시 동작
             val intent = Intent(requireContext(), RecipeDetailActivity::class.java)
             intent.putExtra("recipe_seq", recipe.seq)
             startActivity(intent)
         }
 
-        // RecyclerView 설정을 가로로 스크롤하는 레이아웃 매니저로 변경
-        binding.recipeRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.recipeRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.recipeRecyclerView.adapter = recipeAdapter
-
 
         // 추천 버튼 클릭 시
         binding.recommendButton.setOnClickListener {
-            recommendByTDEE()
+            recommendByIngredients()
         }
 
         // 알람 아이콘 클릭 시
@@ -73,7 +61,7 @@ class Home : Fragment() {
         _binding = null
     }
 
-    private fun recommendByTDEE() {
+    private fun recommendByIngredients() {
         try {
             val genderId = binding.genderGroup.checkedRadioButtonId
             if (genderId == -1) {
@@ -92,9 +80,7 @@ class Home : Fragment() {
             }
 
             val bmr = calculateBMR(gender, weight, height, age)
-            val activityIndex = binding.activityLevelSpinner.selectedItemPosition
-            val activityMultiplier = activityMultipliers.getOrElse(activityIndex) { 1.2 }
-            val tdee = bmr * activityMultiplier
+            Log.d("BMR", "계산된 BMR: $bmr")
 
             val ingredients = binding.ingredientsEditText.text.toString()
             if (ingredients.isBlank()) {
@@ -104,23 +90,10 @@ class Home : Fragment() {
 
             fetchRecipesByIngredients(ingredients, onResult = { fetchedRecipes ->
                 requireActivity().runOnUiThread {
-                    Log.d("RECIPE", "필터 전 레시피 수: ${fetchedRecipes.size}")
+                    Log.d("RECIPE", "불러온 레시피 수: ${fetchedRecipes.size}")
 
-                    val perMealTDEE = tdee / 3
-                    val minCal = perMealTDEE * 0.7
-                    val maxCal = perMealTDEE * 1.1
-
-                    val filtered = fetchedRecipes.filter {
-                        val cal = it.calories.toDoubleOrNull()
-                        val inRange = cal != null && cal in minCal..maxCal
-                        inRange
-                    }
-
-                    Log.d("RECIPE", "필터 후 레시피 수: ${filtered.size}")
-
-                    // 업데이트된 레시피 리스트로 RecyclerView 갱신
                     recipes.clear()
-                    recipes.addAll(filtered)
+                    recipes.addAll(fetchedRecipes)
                     recipeAdapter.notifyDataSetChanged()
 
                     Toast.makeText(requireContext(), "레시피를 불러왔습니다.", Toast.LENGTH_SHORT).show()
@@ -151,11 +124,11 @@ class Home : Fragment() {
             onError: (String) -> Unit
         ) {
             Thread {
-                val key = "" // API 키 삽입
+                val key = "" // TODO: 유효한 API 키를 입력하세요
                 val serviceId = "COOKRCP01"
                 val dataType = "json"
                 val startIdx = "1"
-                val endIdx = "100"
+                val endIdx = "1001"
                 val urlStr = "http://openapi.foodsafetykorea.go.kr/api/$key/$serviceId/$dataType/$startIdx/$endIdx"
 
                 try {
@@ -166,41 +139,48 @@ class Home : Fragment() {
                     val response = reader.readText()
 
                     val json = JSONObject(response)
-                    val items = json.getJSONObject("COOKRCP01").getJSONArray("row")
+                    val cookrcp = json.optJSONObject("COOKRCP01")
 
-                    val recipes = mutableListOf<Recipe>()
-                    for (i in 0 until items.length()) {
-                        val obj = items.getJSONObject(i)
-                        val parts = obj.getString("RCP_PARTS_DTLS")
+                    if (cookrcp != null && cookrcp.has("row")) {
+                        val items = cookrcp.getJSONArray("row")
 
-                        val isMatched = ingredients.isNullOrEmpty() || ingredients.split(",").all { parts.contains(it.trim()) }
+                        val recipes = mutableListOf<Recipe>()
+                        for (i in 0 until items.length()) {
+                            val obj = items.getJSONObject(i)
+                            val parts = obj.optString("RCP_PARTS_DTLS", "")
 
-                        if (isMatched) {
-                            val recipe = Recipe(
-                                name = obj.getString("RCP_NM"),
-                                category = obj.getString("RCP_PAT2"),
-                                method = obj.getString("RCP_WAY2"),
-                                calories = obj.optString("INFO_ENG", "0.0"),
-                                carbohydrate = obj.optString("INFO_CAR", "0.0"),
-                                protein = obj.optString("INFO_PRO", "0.0"),
-                                fat = obj.optString("INFO_FAT", "0.0"),
-                                sodium = obj.optString("INFO_NA", "0.0"),
-                                weight = obj.optString("INFO_WGT", "0.0"),
-                                seq = obj.optString("RCP_SEQ", ""),
-                                hashTag = obj.optString("HASH_TAG", ""),
-                                ingredients = parts,
-                                imageUrl = obj.getString("ATT_FILE_NO_MAIN"),
-                                steps = extractSteps(obj),
-                                stepImages = extractStepImages(obj)
-                            )
+                            val isMatched = ingredients.isNullOrEmpty() || ingredients.split(",").all {
+                                parts.contains(it.trim())
+                            }
 
-                            Log.d("RECIPE", "추가된 레시피: ${recipe.name} / 칼로리: ${recipe.calories}")
-                            recipes.add(recipe)
+                            if (isMatched) {
+                                val recipe = Recipe(
+                                    name = obj.optString("RCP_NM", "이름 없음"),
+                                    category = obj.optString("RCP_PAT2", "없음"),
+                                    method = obj.optString("RCP_WAY2", "없음"),
+                                    calories = obj.optString("INFO_ENG", "0.0"),
+                                    carbohydrate = obj.optString("INFO_CAR", "0.0"),
+                                    protein = obj.optString("INFO_PRO", "0.0"),
+                                    fat = obj.optString("INFO_FAT", "0.0"),
+                                    sodium = obj.optString("INFO_NA", "0.0"),
+                                    weight = obj.optString("INFO_WGT", "0.0"),
+                                    seq = obj.optString("RCP_SEQ", ""),
+                                    hashTag = obj.optString("HASH_TAG", ""),
+                                    ingredients = parts,
+                                    imageUrl = obj.optString("ATT_FILE_NO_MAIN", ""),
+                                    steps = extractSteps(obj),
+                                    stepImages = extractStepImages(obj)
+                                )
+
+                                Log.d("RECIPE", "추가된 레시피: ${recipe.name}")
+                                recipes.add(recipe)
+                            }
                         }
-                    }
 
-                    Log.d("RECIPE", "총 레시피 수: ${recipes.size}")
-                    onResult(recipes)
+                        onResult(recipes)
+                    } else {
+                        onError("레시피 데이터가 존재하지 않습니다.")
+                    }
                 } catch (e: Exception) {
                     e.printStackTrace()
                     onError("에러 발생: ${e.message}")
@@ -221,4 +201,3 @@ class Home : Fragment() {
         }
     }
 }
-
