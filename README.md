@@ -1,6 +1,4 @@
- # 사용자 맞춤형 레시피 추천 및 식재료 관리 애플리케이션 'Last Fresh'
-
-# 🥗 Last Fresh - 나만의 냉장고 속 건강한 레시피 추천 앱
+# 🥗 Last Fresh -사용자 맞춤형 레시피 추천 및 식재료 관리 애플리케이션
 
 <img src="https://img.shields.io/badge/Platform-Android-green?style=flat-square" /> <img src="https://img.shields.io/badge/Language-Kotlin-blue?style=flat-square" /> <img src="https://img.shields.io/badge/Backend-Firebase-yellow?style=flat-square" />
 
@@ -57,7 +55,7 @@
 ## 📱 주요 화면 미리보기
 
 > UI/UX는 Figma로 설계되었으며, 사용자의 흐름에 맞춘 직관적인 구성
-(./Last Fresh_화면구성.jpg)
+(/Last Fresh_화면구성.jpg)
 
 ---
 
