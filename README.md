@@ -4,7 +4,11 @@
 
 > **Last Fresh**는 냉장고 속 재료를 기반으로 사용자의 건강 상태에 맞춘 맞춤형 레시피를 추천하고, 유통기한 알림 및 재료 관리를 도와주는 Android 애플리케이션입니다.
 
-[소개 영상](./screenshot/LastFresh_소개영상.mp4)
+<video width="600" controls>
+  <source src="./screenshot/LastFresh_소개영상.mp4" type="video/mp4">
+  동영상을 지원하지 않는 브라우저입니다.
+</video>
+
 
 ---
 
