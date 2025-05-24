@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -142,28 +141,8 @@
                 android:inputType="numberDecimal" />
         </LinearLayout>
 
-        <!-- 활동량
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp"
-            android:gravity="center_vertical">
 
-            <!-<TextView
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:text="활동량:"
-                android:textSize="16sp" />
-
-            <Spinner
-                android:id="@+id/activityLevelSpinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-        </LinearLayout>->
-
-        <!- 재료 입력 -->
+        <!-- 재료 입력 -->
         <EditText
             android:id="@+id/ingredientsEditText"
             android:layout_width="match_parent"
@@ -190,9 +169,6 @@
             android:nestedScrollingEnabled="false"
             android:layout_marginTop="16dp"
             android:orientation="horizontal" />  <!-- 중요한 부분: orientation 속성을 가로로 설정 -->
-
-
-
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
