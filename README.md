@@ -6,6 +6,8 @@
 
 > **Last Fresh**는 냉장고 속 재료를 기반으로 사용자의 건강 상태에 맞춘 맞춤형 레시피를 추천하고, 유통기한 알림 및 재료 관리를 도와주는 Android 애플리케이션입니다.
 
+
+
 ---
 
 ## 📌 프로젝트 개요
@@ -56,9 +58,6 @@
 
 > UI/UX는 Figma로 설계되었으며, 사용자의 흐름에 맞춘 직관적인 구성
 
-| 홈 화면 | 영수증 인식 | 재료 목록 | 레시피 추천 | 즐겨찾기 |
-|--------|------------|-----------|--------------|----------|
-| ![홈](./screenshots/home.png) | ![OCR](./screenshots/ocr.png) | ![재료](./screenshots/ingredients.png) | ![레시피](./screenshots/recipe.png) | ![즐겨찾기](./screenshots/favorites.png) |
 
 ---
 
@@ -76,16 +75,15 @@
 | 기간 | 주요 작업 내용 |
 |------|----------------|
 | 1~2주차 | 주제 선정, 기술 조사, API 탐색 |
-| 3~5주차 | UI/UX 설계, OCR 기능 개발 |
-| 6~8주차 | 레시피 추천 알고리즘, Firebase 연동 |
+| 3~5주차 | UI/UX 설계, Firebase 연동 |
+| 6~8주차 | 레시피 추천 알고리즘, OCR 기능 개발 |
 | 9~10주차 | 디버깅 및 기능 고도화, 졸업작품 발표 준비 |
 
 ---
 
-## 📄 라이선스
+## 📄 Library
 
-이 프로젝트는 [MIT License](./LICENSE)를 따릅니다.
-
----
-
-> 🤖 더 많은 캡스톤, AI, 앱 프로젝트 예시는 [gptonline.ai/ko](https://gptonline.ai/ko/)에서 확인하세요!
+-[NAVER CLOVA OCR] (https://guide.ncloud-docs.com/docs/ko/clovaocr-overview)
+-[firebase] (https://console.firebase.google.com/u/0/?hl=ko)
+-[NAVER 쇼핑 API] (https://developers.naver.com/docs/serviceapi/search/shopping/shopping.md)
+-[식약처_조리식품레시피DB] (https://www.foodsafetykorea.go.kr/api/openApiInfo.do?menu_grp=MENU_GRP31&menu_no=661&show_cnt=10&start_idx=1&svc_no=COOKRCP01)
