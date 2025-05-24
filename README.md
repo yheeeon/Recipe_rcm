@@ -83,7 +83,7 @@
 
 ## 📄 Library
 
--[NAVER CLOVA OCR] (https://guide.ncloud-docs.com/docs/ko/clovaocr-overview)
--[firebase] (https://console.firebase.google.com/u/0/?hl=ko)
--[NAVER 쇼핑 API] (https://developers.naver.com/docs/serviceapi/search/shopping/shopping.md)
--[식약처_조리식품레시피DB] (https://www.foodsafetykorea.go.kr/api/openApiInfo.do?menu_grp=MENU_GRP31&menu_no=661&show_cnt=10&start_idx=1&svc_no=COOKRCP01)
+-[NAVER CLOVA OCR](https://guide.ncloud-docs.com/docs/ko/clovaocr-overview)
+-[firebase](https://console.firebase.google.com/u/0/?hl=ko)
+-[NAVER 쇼핑 API](https://developers.naver.com/docs/serviceapi/search/shopping/shopping.md)
+-[식약처_조리식품레시피DB](https://www.foodsafetykorea.go.kr/api/openApiInfo.do?menu_grp=MENU_GRP31&menu_no=661&show_cnt=10&start_idx=1&svc_no=COOKRCP01)
