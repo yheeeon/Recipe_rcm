@@ -55,7 +55,7 @@
 ## 📱 주요 화면 미리보기
 
 > UI/UX는 Figma로 설계되었으며, 사용자의 흐름에 맞춘 직관적인 구성
-(Recipe_rcm/Last Fresh_화면구성.jpg)
+(scrrenshots/Last Fresh_화면구성.jpg)
 
 ---
 
