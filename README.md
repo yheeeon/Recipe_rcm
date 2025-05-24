@@ -2,9 +2,7 @@
 
 # 🥗 Last Fresh - 나만의 냉장고 속 건강한 레시피 추천 앱
 
-<img src="https://img.shields.io/badge/Platform-Android-green?style=flat-square" />
-<img src="https://img.shields.io/badge/Language-Kotlin-blue?style=flat-square" />
-<img src="https://img.shields.io/badge/Backend-Firebase-yellow?style=flat-square" />
+<img src="https://img.shields.io/badge/Platform-Android-green?style=flat-square" /> <img src="https://img.shields.io/badge/Language-Kotlin-blue?style=flat-square" /> <img src="https://img.shields.io/badge/Backend-Firebase-yellow?style=flat-square" />
 
 > **Last Fresh**는 냉장고 속 재료를 기반으로 사용자의 건강 상태에 맞춘 맞춤형 레시피를 추천하고, 유통기한 알림 및 재료 관리를 도와주는 Android 애플리케이션입니다.
 
