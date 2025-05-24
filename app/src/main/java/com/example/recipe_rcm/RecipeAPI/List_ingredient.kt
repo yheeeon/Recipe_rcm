@@ -34,9 +34,9 @@ import java.util.concurrent.TimeUnit
 class List_ingredient : Fragment() {
 
     private lateinit var ingredientAdapter: IngredientAdapter
-    private lateinit var recipeAdapter: RecipeAdapter
+    private lateinit var recipeAdapter: RecipeAdapter //❌
     private lateinit var viewModel: IngredientViewModel
-    private val recipeList = mutableListOf<Recipe>()
+    private val recipeList = mutableListOf<Recipe>()//❌
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +47,7 @@ class List_ingredient : Fragment() {
         // ViewModel 초기화
         viewModel = ViewModelProvider(requireActivity())[IngredientViewModel::class.java]
 
-        // 재료 목록 RecyclerView 초기화
+        // RecyclerView 초기화 및 어댑터 연결
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         ingredientAdapter = IngredientAdapter(emptyList(),
             deleteAction = { ingredientName ->
@@ -60,56 +60,22 @@ class List_ingredient : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = ingredientAdapter
 
-        // ViewModel 데이터 관찰 (재료 목록 업데이트)
+        // ViewModel의 재료 데이터 관찰, 변경 시 어댑터 갱신
         viewModel.ingredients.observe(viewLifecycleOwner) { ingredients ->
             ingredientAdapter.updateIngredient(ingredients)
         }
 
-        // 레시피 추천 버튼 클릭 이벤트
-        /*val ingredientsEditText = view.findViewById<EditText>(R.id.ingredientsEditText)
-        val recommendButton = view.findViewById<Button>(R.id.btn_recommend_recipe)
-        recommendButton.setOnClickListener {
-            val ingredients = ingredientsEditText.text.toString()
-            if (ingredients.isBlank()) {
-                Toast.makeText(requireContext(), "재료를 입력해주세요.", Toast.LENGTH_SHORT).show()
-            } else {
-                fetchRecipes(ingredients)
-            }
-        }*/
-
-        // 재료 추가 버튼 클릭 이벤트
+        // 재료 추가 버튼 클릭 -> 다이얼로그 표시
         val addButton = view.findViewById<Button>(R.id.btn_add)
         addButton.setOnClickListener {
             showAddIngredientDialog()
         }
+        // 재료 유통기한 상태 자동 업데이트용 워커 예약
         scheduleExpirationUpdate()
-
         return view
     }
 
-    /*private fun fetchRecipes(ingredients: String) {
-        Home.fetchRecipesByIngredients(
-            ingredients = ingredients,
-            onResult = { recipes ->
-                requireActivity().runOnUiThread {
-                    // 레시피 RecyclerView 업데이트
-                    recipeList.clear()
-                    recipeList.addAll(recipes)
-                    if (::recipeAdapter.isInitialized) {
-                        recipeAdapter.notifyDataSetChanged()
-                    } else {
-                        setupRecipeRecyclerView(recipeList)
-                    }
-                }
-            },
-            onError = { errorMessage ->
-                requireActivity().runOnUiThread {
-                    Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
-                }
-            }
-        )
-    }*/
-
+    //❌
     private fun setupRecipeRecyclerView(recipes: List<Recipe>) {
         val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView)
         if (recyclerView != null) {
@@ -123,7 +89,7 @@ class List_ingredient : Fragment() {
             recyclerView.adapter = recipeAdapter
         }
     }
-
+    // 재료 추가 다이얼로그 표시 및 입력값 받아서 ViewModel에 추가 요청
     private fun showAddIngredientDialog() {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_add_ingredient, null)
         val nameEditText = dialogView.findViewById<EditText>(R.id.nameEditText)
@@ -133,7 +99,7 @@ class List_ingredient : Fragment() {
         val toggleFrozen = dialogView.findViewById<ToggleButton>(R.id.toggleFrozen)
         val toggleRoomTemperature = dialogView.findViewById<ToggleButton>(R.id.toggleRoomTemperature)
 
-        // 유통기한 선택
+        // 유통기한 날짜 선택 다이얼로그 연결
         expirationEditText.setOnClickListener {
             val calendar = Calendar.getInstance()
             DatePickerDialog(
@@ -147,7 +113,7 @@ class List_ingredient : Fragment() {
             ).show()
         }
 
-        // 토글 버튼 상태에 따른 동작 설정
+        // 토글 버튼은 한 개만 선택 가능하도록 설정 (색상 변경 포함)
         val selectedColor = resources.getColor(R.color.toggle_selected, null)
         val unselectedColor = resources.getColor(R.color.toggle_unselected, null)
 
@@ -175,7 +141,7 @@ class List_ingredient : Fragment() {
             }
         }
 
-        // 다이얼로그 생성
+        // 다이얼로그 생성 및 긍정 버튼 클릭 -> 재료 추가
         AlertDialog.Builder(requireContext())
             .setTitle("재료 추가")
             .setView(dialogView)
@@ -196,7 +162,7 @@ class List_ingredient : Fragment() {
             .setNegativeButton("취소", null)
             .show()
     }
-
+    // 재료 수정 다이얼로그 표시 (기존 값 채워서 보여줌)
     private fun showEditIngredientDialog(ingredient: Ingredient) {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_add_ingredient, null)
         val nameEditText = dialogView.findViewById<EditText>(R.id.nameEditText).apply {
@@ -299,7 +265,7 @@ class List_ingredient : Fragment() {
             .show()
     }
 
-
+    // 유통기한 상태 계산 함수 (남은 일수 또는 만료일 표시)
     private fun calculateExpirationStatus(expiration: String): String {
         if (expiration.isBlank() || expiration == "유통기한 선택") {
             return "유통기한 미설정"
@@ -329,7 +295,7 @@ class List_ingredient : Fragment() {
         }
     }
 
-
+    // 재료 유통기한 자동 상태 갱신용 WorkManager 예약
     private fun scheduleExpirationUpdate() {
         val workRequest = PeriodicWorkRequestBuilder<UpdateExpirationWorker>(1, TimeUnit.DAYS)
             .setInitialDelay(calculateInitialDelay(), TimeUnit.MILLISECONDS) // 자정까지의 시간 계산

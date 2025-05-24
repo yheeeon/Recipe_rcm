@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class Push_alram : AppCompatActivity() {
-    private lateinit var database: DatabaseReference
+    private lateinit var database: DatabaseReference //Firebase DB 참조
     private lateinit var tvSelectedTime: TextView
     private lateinit var switchAlarm: Switch
     private var isAlarmOn: Boolean = true // 알림 ON/OFF 상태
@@ -35,7 +35,10 @@ class Push_alram : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.push_alram)
 
+        //firebase DB의 'ingredients' 경로 참조
         database = FirebaseDatabase.getInstance().getReference("ingredients")
+
+        //뷰 초기호
         tvSelectedTime = findViewById(R.id.tvSelectedTime)
         switchAlarm = findViewById(R.id.switchAlarm)
         val timePicker: TimePicker = findViewById(R.id.timePicker)
@@ -74,24 +77,28 @@ class Push_alram : AppCompatActivity() {
             ).show()
         }
 
+        // '알림 설정'버튼 클릭 시 실행
         btnSetAlarm.setOnClickListener {
             alarmHour = timePicker.hour
             alarmMinute = timePicker.minute
 
+            //알람 시간을 Calender 객체로 설정
             val calendar = Calendar.getInstance().apply {
                 set(Calendar.HOUR_OF_DAY, alarmHour)
                 set(Calendar.MINUTE, alarmMinute)
                 set(Calendar.SECOND, 0)
             }
-
+            //과거 시간이면 내일로 설정
             if (calendar.timeInMillis <= System.currentTimeMillis()) {
                 calendar.add(Calendar.DATE, 1)
             }
 
+            //UI에 설정된 시간 표시
             val formattedTime = String.format("%02d:%02d", alarmHour, alarmMinute)
             tvSelectedTime.text = "설정된 시간: $formattedTime"
-            saveAlarmState() // 새로운 알림 시간 저장
+            saveAlarmState()
 
+            //알람 설정 및 유통기한 확인 및 푸시 예약
             if (isAlarmOn) {
                 setAlarm(calendar.timeInMillis)
                 checkExpirationAndNotify(calendar.timeInMillis)
@@ -102,6 +109,7 @@ class Push_alram : AppCompatActivity() {
         }
     }
 
+    //푸시 알림 예약
     @SuppressLint("UnspecifiedImmutableFlag", "ScheduleExactAlarm")
     private fun setAlarm(timeInMillis: Long) {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -112,20 +120,20 @@ class Push_alram : AppCompatActivity() {
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
-
+        //절전 모드에서도 정확한 시간에 울리도록 설정
         alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
             timeInMillis,
             pendingIntent
         )
     }
-
+    //유통기한이 오늘까지인 재료 확인 후, 개별 푸시 알림 예약
     private fun checkExpirationAndNotify(alarmTimeInMillis: Long) {
         val todayDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         val todayMillis = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(todayDate)?.time
-
+        //Firebase에서 재료 정보 가져오기
         database.get().addOnSuccessListener { snapshot ->
-            var hasValidIngredient = false // 오늘까지인 재료가 있는지 확인
+            var hasValidIngredient = false
 
             snapshot.children.forEach { ingredient ->
                 val expirationDate = ingredient.child("expiration").value.toString()
@@ -148,7 +156,7 @@ class Push_alram : AppCompatActivity() {
             Log.e("PushAlarm", "Failed to fetch ingredients from Firebase", exception)
         }
     }
-
+    //특정 재료에 대해 지정 시간에 알림 예약
     @SuppressLint("UnspecifiedImmutableFlag", "ScheduleExactAlarm")
     private fun sendExpirationNotificationAtTime(ingredientName: String, alarmTimeInMillis: Long) {
         val intent = Intent(this, NotificationReceiver::class.java).apply {
@@ -173,7 +181,7 @@ class Push_alram : AppCompatActivity() {
         Log.d("PushAlarm", "Notification scheduled for $ingredientName at ${Date(alarmTimeInMillis)}")
     }
 
-    // 알림 상태 저장
+    // 알림 상태 및 시간 저장
     private fun saveAlarmState() {
         sharedPreferences.edit().apply {
             putInt("hour", alarmHour)
@@ -183,7 +191,7 @@ class Push_alram : AppCompatActivity() {
         }
     }
 
-    // 알림 상태 복원
+    // 저장된 알림 설정 불러오기
     private fun restoreAlarmState() {
         alarmHour = sharedPreferences.getInt("hour", 12) // 기본값: 12시
         alarmMinute = sharedPreferences.getInt("minute", 0) // 기본값: 0분

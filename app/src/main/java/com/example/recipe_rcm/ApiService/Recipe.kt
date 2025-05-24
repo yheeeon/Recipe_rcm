@@ -4,10 +4,10 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Recipe(
-    val name: String = "",
-    val category: String = "",
-    val method: String = "",
-    val calories: String = "",
+    val name: String = "",          // 레시피 이름
+    val category: String = "",      // 레시피 카테고리
+    val method: String = "",        // 조리 방법
+    val calories: String = "",      // 칼로리
     val carbohydrate: String = "",  // 탄수화물
     val protein: String = "",       // 단백질
     val fat: String = "",           // 지방
@@ -15,13 +15,14 @@ data class Recipe(
     val weight: String = "",        // 중량
     val seq: String = "",           // 일련번호
     val hashTag: String = "",       // 해시태그
-    val ingredients: String = "",
-    val imageUrl: String = "",
-    val steps: List<String> = listOf(),
-    val stepImages: List<String> = listOf(),
-    var isFavorite: Boolean = false
+    val ingredients: String = "",   // 재료 목록
+    val imageUrl: String = "",      // 레시피 이미지 url
+    val steps: List<String> = listOf(),     //조리 순서 텍스트
+    val stepImages: List<String> = listOf(),//조리 순서 이미지 url 리스트
+    var isFavorite: Boolean = false         //즐겨찾기 여부
 ) : Parcelable {
 
+    //❌
     constructor() : this(
         "", "", "", "", "", "", "", "", "", "", "", "",
         "", listOf(), listOf(), false

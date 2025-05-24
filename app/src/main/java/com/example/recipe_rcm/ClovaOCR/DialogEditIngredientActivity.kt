@@ -8,7 +8,6 @@ import com.example.recipe_rcm.R
 import com.example.recipe_rcm.RecipeAPI.model.Ingredient
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import java.text.SimpleDateFormat
 import java.util.*
 
 class DialogEditIngredientActivity : AppCompatActivity() {
@@ -24,25 +23,28 @@ class DialogEditIngredientActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_edit_ingredient)
 
+        // Firebase 실시간 데이터베이스 초기화
         database = FirebaseDatabase.getInstance().reference
-
+        // 뷰 바인딩
         tvIngredientName = findViewById(R.id.tvIngredientName)
         etIngredientCount = findViewById(R.id.etIngredientCount)
         tvExpiration = findViewById(R.id.tvExpiration)
         radioGroupStorage = findViewById(R.id.radioGroupStorage)
         btnConfirm = findViewById(R.id.btnConfirm)
 
+        //intent로 받은 식재료 정보를 입력 필드 채움
         val name = intent.getStringExtra("name") ?: ""
         val count = intent.getStringExtra("count") ?: ""
 
         tvIngredientName.setText(name)
         etIngredientCount.setText(count)
 
+        //유통기한 textvew 클릭 -> 날짜 선택 다이얼로그 표시
         tvExpiration.setOnClickListener { showDatePickerDialog() }
-
+        //저장 버튼 클릭 -> Firebase에 저장
         btnConfirm.setOnClickListener { saveIngredientToFirebase() }
     }
-
+    //날짜 선택 다이얼로그 표시, 선택한 날짜를 textview에 표시
     private fun showDatePickerDialog() {
         val calendar = Calendar.getInstance()
         val datePickerDialog = DatePickerDialog(this, { _, year, month, day ->
@@ -52,6 +54,7 @@ class DialogEditIngredientActivity : AppCompatActivity() {
         datePickerDialog.show()
     }
 
+    //입력한 정보를 실시간 Firebase에 저장
     private fun saveIngredientToFirebase() {
         val name = tvIngredientName.text.toString().trim()
         val count = etIngredientCount.text.toString().trim()
@@ -64,7 +67,7 @@ class DialogEditIngredientActivity : AppCompatActivity() {
             Toast.makeText(this, "모든 항목을 입력해주세요.", Toast.LENGTH_SHORT).show()
             return
         }
-
+        //고유 키를 생성하여 ingredients 경로에 데이터 저장
         val ingredientId = database.push().key
         if (ingredientId != null) {
             database.child("ingredients").child(ingredientId).setValue(Ingredient(name, count, expiration, storage))

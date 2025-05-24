@@ -124,7 +124,7 @@ class Home : Fragment() {
             onError: (String) -> Unit
         ) {
             Thread {
-                val key = "" // TODO: 유효한 API 키를 입력하세요
+                val key = "7b44c5121b6f4b61a8fb" // TODO: 유효한 API 키를 입력하세요
                 val serviceId = "COOKRCP01"
                 val dataType = "json"
                 val startIdx = "1"

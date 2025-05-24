@@ -37,14 +37,14 @@ class OcrResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ocr_result)
-
+        //view 초기화
         capturedImageView = findViewById(R.id.capturedImageView)
         ocrRecyclerView = findViewById(R.id.ocrRecyclerView)
-
+        // RecyclerView 설정
         ocrAdapter = OcrResultAdapter(this, ocrItemList)
         ocrRecyclerView.layoutManager = LinearLayoutManager(this)
         ocrRecyclerView.adapter = ocrAdapter
-
+        // 전달받은 이미지 URI 로드 및 OCR 수행
         val imageUri = intent.getStringExtra("image_uri")
         if (!imageUri.isNullOrEmpty()) {
             val bitmap = getBitmapFromUri(Uri.parse(imageUri))
@@ -54,7 +54,7 @@ class OcrResultActivity : AppCompatActivity() {
             }
         }
     }
-
+    // URI로부터 Bitmap 이미지로 변환
     private fun getBitmapFromUri(uri: Uri): Bitmap? {
         return try {
             val inputStream: InputStream? = contentResolver.openInputStream(uri)
@@ -64,18 +64,18 @@ class OcrResultActivity : AppCompatActivity() {
             null
         }
     }
-
+    // HTML 태그 제거 함수 (OCR 결과에 포함된 태그 제거)
     private fun removeHtmlTags(input: String): String {
         return input.replace(Regex("<[^>]*>"), "")
     }
-
+    // OCR 처리 및 Retrofit 요청
     private fun performOcr(bitmap: Bitmap) {
         val base64Image = bitmapToBase64(bitmap)
 
         if (base64Image.isEmpty()) {
             return
         }
-
+        // Clova OCR API에 보낼 JSON 문자열 구성
         val requestJson = """
     {
         "version": "V2",
@@ -95,7 +95,7 @@ class OcrResultActivity : AppCompatActivity() {
 
         val requestBody = RequestBody.create("application/json".toMediaTypeOrNull(), requestJson)
         val ocrService = RetrofitClient.ocrService
-
+        // 비동기 OCR 요청
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response: Response<OcrResponse> = ocrService.getOcrResult(requestBody)
@@ -127,7 +127,7 @@ class OcrResultActivity : AppCompatActivity() {
         }
     }
 
-
+    // Flask 서버로 추출된 식재료 데이터 전송
     private fun sendDataToFlaskServer(items: List<OcrItem>) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -142,7 +142,7 @@ class OcrResultActivity : AppCompatActivity() {
 
                 val body = RequestBody.create("application/json".toMediaTypeOrNull(), jsonBody)
                 val request = Request.Builder()
-                    .url("http://192.168.242.126:5000/ocr") // ✅Flask 서버 URL, ex:"http://000.000.00.000:5000/ocr"
+                    .url("/ocr") // ✅Flask 서버 URL, ex:"http://000.000.00.000:5000/ocr"
                     .post(body)
                     .build()
 
@@ -170,9 +170,8 @@ class OcrResultActivity : AppCompatActivity() {
             }
         }
     }
-
+    // 서버 응답 JSON 파싱하여 식품 목록만 추출
     private fun parseFoodItemsFromResponse(responseBody: String?): List<OcrItem> {
-        // 서버에서 받은 JSON 응답을 파싱하여 food 항목만 반환하는 함수
         val foodItemList = mutableListOf<OcrItem>()
         try {
             val jsonObject = JsonParser.parseString(responseBody).asJsonObject
@@ -191,13 +190,14 @@ class OcrResultActivity : AppCompatActivity() {
         return foodItemList
     }
 
-
+    // Bitmap 이미지를 Base64 인코딩
     private fun bitmapToBase64(bitmap: Bitmap): String {
         val baos = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT)
     }
 
+    // 로그 및 Toast 메시지 출력
     private fun showToastAndLog(message: String) {
         runOnUiThread {
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

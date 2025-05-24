@@ -15,6 +15,7 @@ class NotificationReceiver : BroadcastReceiver() {
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
+        //알림 채널
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 channelId,
@@ -24,12 +25,13 @@ class NotificationReceiver : BroadcastReceiver() {
             notificationManager.createNotificationChannel(channel)
         }
 
-        // 기본 값 설정
+        // intent에서 받은 재료 이름 가져오기(비어있으면 기본 값 사용)
         val ingredientName =
             intent.getStringExtra("ingredientName")?.takeIf { it.isNotEmpty() } ?: "알 수 없는 재료"
 
         Log.d("PushAlarm", "Received Ingredient Name: $ingredientName")
 
+        //알림 생성
         val notification = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(android.R.drawable.ic_dialog_info)
             .setContentTitle("유통기한 알림")

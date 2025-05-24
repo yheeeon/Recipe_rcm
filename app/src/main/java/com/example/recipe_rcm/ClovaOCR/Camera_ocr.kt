@@ -19,14 +19,14 @@ import java.io.File
 
 class Camera_ocr : Fragment() {
 
-    private lateinit var captureButton: Button
-    private var imageUri: Uri? = null
+    private lateinit var captureButton: Button  //촬영 버튼
+    private var imageUri: Uri? = null           //선택된 이미지 url 저장
 
     companion object {
-        private const val REQUEST_CODE_GALLERY = 2
+        private const val REQUEST_CODE_GALLERY = 2 //갤러리 호출
         private const val FILE_PROVIDER_AUTHORITY = "com.example.recipe_rcm.fileprovider"
     }
-
+    //fragment view 초기화 및 버튼 클릭 이벤트
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,7 +34,7 @@ class Camera_ocr : Fragment() {
         val rootView = inflater.inflate(R.layout.camera_ocr, container, false)
 
         captureButton = rootView.findViewById(R.id.button_capture)
-
+        //버튼 클릭 시 이미지 선택 다이얼로그 표시
         captureButton.setOnClickListener {
             showImageSourceDialog()
         }
@@ -86,7 +86,7 @@ class Camera_ocr : Fragment() {
                 Toast.makeText(requireContext(), "사진 촬영에 실패했습니다.", Toast.LENGTH_SHORT).show()
             }
         }
-
+    //갤러리 결과 처리
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_GALLERY && resultCode == Activity.RESULT_OK) {

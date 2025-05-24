@@ -15,13 +15,13 @@ import com.example.recipe_rcm.R
 class RecipeAdapter(
     private val context: Context,
     private val recipes: List<Recipe>,
-    private val onItemClick: (Recipe) -> Unit // 클릭 이벤트
+    private val onItemClick: (Recipe) -> Unit
 ) : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
     inner class RecipeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val recipeImage: ImageView = view.findViewById(R.id.recipeImage)
     }
-
+    // ViewHolder를 생성, layout을 inflate (XML → View 객체로 변환)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.recipe_item, parent, false)
         return RecipeViewHolder(view)
@@ -33,7 +33,7 @@ class RecipeAdapter(
         // Glide를 사용하여 이미지 로드
         Glide.with(context)
             .load(recipe.imageUrl)
-            .placeholder(R.drawable.loading) // 로딩 중 이미지
+            .placeholder(R.drawable.loading) // 로딩 중
             .into(holder.recipeImage) //레시피 이미지
 
         // 이미지 클릭 이벤트

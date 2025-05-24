@@ -30,7 +30,6 @@ class Heart : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // heart.xml 레이아웃을 사용
         val view = inflater.inflate(R.layout.heart, container, false)
 
         // RecyclerView와 EmptyTextView 초기화
@@ -51,7 +50,7 @@ class Heart : Fragment() {
 
         return view
     }
-
+    //Firebase-favorite 노드에 데이터 변경이 있을 때마다 호출되는 리스너 등록
     private fun loadFavoritesFromFirebase() {
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -71,7 +70,7 @@ class Heart : Fragment() {
                     recyclerView.visibility = View.VISIBLE
                 }
             }
-
+            // 데이터 로드 실패 시 메시지 표시
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(
                     requireContext(),
