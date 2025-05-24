@@ -57,7 +57,7 @@
 > UI/UX는 Figma로 설계되었으며, 사용자의 흐름에 맞춘 직관적인 구성
 
 
-![주요 화면 구성 한 눈에 보기](./screenshots/LastFresh_화면구성.jpg)
+![주요 화면 구성 한 눈에 보기](./screenshot/LastFresh_화면구성.jpg)
 
 ---
 
