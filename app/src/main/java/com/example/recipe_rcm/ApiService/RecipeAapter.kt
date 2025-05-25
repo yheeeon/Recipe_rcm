@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.recipe_rcm.ApiService.Recipe
@@ -20,6 +21,7 @@ class RecipeAdapter(
 
     inner class RecipeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val recipeImage: ImageView = view.findViewById(R.id.recipeImage)
+        val recipeName: TextView = view.findViewById(R.id.recipeName)
     }
     // ViewHolder를 생성, layout을 inflate (XML → View 객체로 변환)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
@@ -36,10 +38,20 @@ class RecipeAdapter(
             .placeholder(R.drawable.loading) // 로딩 중
             .into(holder.recipeImage) //레시피 이미지
 
-        // 이미지 클릭 이벤트
+        // 레시피명 텍스트뷰에 세팅
+        holder.recipeName.text = recipe.name
+
+        // 이미지 클릭 시 상세 화면 이동
         holder.recipeImage.setOnClickListener {
             val intent = Intent(context, RecipeDetailActivity::class.java)
-            intent.putExtra("recipe", recipe)  // Recipe 객체를 Intent로 전달
+            intent.putExtra("recipe", recipe)  // seq 등 필요한 데이터 전달
+            context.startActivity(intent)
+        }
+
+        // 아이템 전체 클릭 시도 상세 화면 이동
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, RecipeDetailActivity::class.java)
+            intent.putExtra("recipe", recipe)
             context.startActivity(intent)
         }
     }

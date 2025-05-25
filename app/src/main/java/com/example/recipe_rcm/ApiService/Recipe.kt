@@ -22,12 +22,6 @@ data class Recipe(
     var isFavorite: Boolean = false         //즐겨찾기 여부
 ) : Parcelable {
 
-    //❌
-    constructor() : this(
-        "", "", "", "", "", "", "", "", "", "", "", "",
-        "", listOf(), listOf(), false
-    )
-
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "", // name
         parcel.readString() ?: "", // category

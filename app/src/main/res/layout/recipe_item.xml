@@ -85,13 +85,16 @@
         </ScrollView>
 
         <!-- 즐겨찾기 버튼 -->
-        <Button
+        <ImageButton
             android:id="@+id/favorite_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Add to Favorites"
+            android:contentDescription="즐겨찾기 버튼"
+            android:scaleType="centerInside"
             android:padding="8dp"
-            android:textColor="#FF0000" />
+            android:src="@drawable/ic_heart_outline"
+            android:visibility="gone"/>
+
     </LinearLayout>
 </ScrollView>

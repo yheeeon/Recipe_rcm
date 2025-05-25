@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:paddingBottom="16dp">
+            android:paddingBottom="8dp">
 
             <TextView
                 android:id="@+id/textView2"
@@ -39,7 +39,15 @@
                 android:contentDescription="알람"
                 android:src="@drawable/alram" />
         </LinearLayout>
-
+        <TextView
+            android:id="@+id/descriptionText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="기초대사량과 재료에 맞춰서 레시피를 추천해드립니다"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            android:textColor="#666666"
+            android:layout_marginBottom="1dp" />
         <!-- 나이 -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -141,7 +149,6 @@
                 android:inputType="numberDecimal" />
         </LinearLayout>
 
-
         <!-- 재료 입력 -->
         <EditText
             android:id="@+id/ingredientsEditText"
@@ -167,7 +174,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal" />  <!-- 중요한 부분: orientation 속성을 가로로 설정 -->
 
     </LinearLayout>

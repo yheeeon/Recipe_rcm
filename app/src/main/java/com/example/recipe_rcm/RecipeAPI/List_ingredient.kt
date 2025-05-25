@@ -34,9 +34,7 @@ import java.util.concurrent.TimeUnit
 class List_ingredient : Fragment() {
 
     private lateinit var ingredientAdapter: IngredientAdapter
-    private lateinit var recipeAdapter: RecipeAdapter //❌
     private lateinit var viewModel: IngredientViewModel
-    private val recipeList = mutableListOf<Recipe>()//❌
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,20 +73,6 @@ class List_ingredient : Fragment() {
         return view
     }
 
-    //❌
-    private fun setupRecipeRecyclerView(recipes: List<Recipe>) {
-        val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView)
-        if (recyclerView != null) {
-            recipeAdapter = RecipeAdapter(requireContext(), recipes) { recipe ->
-                // 레시피 클릭 시 상세 화면으로 이동
-                val intent = Intent(requireContext(), RecipeDetailActivity::class.java)
-                intent.putExtra("recipe", recipe) // Parcelable로 레시피 데이터 전달
-                startActivity(intent)
-            }
-            recyclerView.layoutManager = LinearLayoutManager(requireContext())
-            recyclerView.adapter = recipeAdapter
-        }
-    }
     // 재료 추가 다이얼로그 표시 및 입력값 받아서 ViewModel에 추가 요청
     private fun showAddIngredientDialog() {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_add_ingredient, null)

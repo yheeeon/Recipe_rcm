@@ -1,8 +1,8 @@
 package com.example.recipe_rcm.ApiService
 
-import android.graphics.Color
 import android.os.Bundle
-import android.widget.Button
+import android.view.View
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -12,10 +12,9 @@ import com.example.recipe_rcm.R
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-
 class RecipeDetailActivity : AppCompatActivity() {
 
-    private lateinit var favoriteButton: Button
+    private lateinit var favoriteButton: ImageButton
     private lateinit var recipe: Recipe
     private val databaseReference: DatabaseReference =
         FirebaseDatabase.getInstance().reference.child("favorites")
@@ -71,17 +70,21 @@ class RecipeDetailActivity : AppCompatActivity() {
                 recipe.isFavorite = false
             }
             updateFavoriteButton()
+            favoriteButton.visibility = View.VISIBLE  // 데이터 로드 완료 후 버튼 보이기
+        }.addOnFailureListener {
+            // 에러 처리 시에도 버튼 보여주기 가능
+            favoriteButton.visibility = View.VISIBLE
         }
     }
 
     // 즐겨찾기 상태에 따라 버튼 텍스트 업데이트
     private fun updateFavoriteButton() {
         if (recipe.isFavorite) {
-            favoriteButton.text = "즐겨찾기 삭제"
-            favoriteButton.setTextColor(Color.RED)
+            // 채워진 하트 아이콘
+            favoriteButton.setImageResource(R.drawable.ic_heart_filled)
         } else {
-            favoriteButton.text = "즐겨찾기 추가"
-            favoriteButton.setTextColor(Color.GREEN)
+            // 비어있는 하트 아이콘
+            favoriteButton.setImageResource(R.drawable.ic_heart_outline)
         }
     }
 

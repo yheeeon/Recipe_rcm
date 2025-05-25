@@ -142,7 +142,7 @@ class OcrResultActivity : AppCompatActivity() {
 
                 val body = RequestBody.create("application/json".toMediaTypeOrNull(), jsonBody)
                 val request = Request.Builder()
-                    .url("/ocr") // ✅Flask 서버 URL, ex:"http://000.000.00.000:5000/ocr"
+                    .url("/ocr") // ✅Flask 서버 URL
                     .post(body)
                     .build()
 

@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit
 object RetrofitClient {
 
     private const val BASE_URL = "https://f5hfnd2eb6.apigw.ntruss.com/custom/v1/37636/1ff001d2a243205ad4d84609e4dcbc517854ef5f1e3babdc1d2e9b2779cd77fd/"
-    private const val OCR_SECRET_KEY = "=" //OCR SECRET KEY
+    private const val OCR_SECRET_KEY = "" //OCR SECRET KEY
     // OkHttpClient 설정: HTTP 요청 시 인터셉터로 헤더에 OCR 시크릿 키 추가
     private val client = OkHttpClient.Builder()
         .addInterceptor(Interceptor { chain ->

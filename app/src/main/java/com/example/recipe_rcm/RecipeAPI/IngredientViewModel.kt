@@ -51,22 +51,6 @@ class IngredientViewModel : ViewModel() {
                 }
             })
     }
-    //❌
-    fun updateIngredient(updatedIngredient: Ingredient) {
-        database.orderByChild("name").equalTo(updatedIngredient.name)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    for (child in snapshot.children) {
-                        // 기존 항목을 찾아 수정
-                        child.ref.setValue(updatedIngredient)
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    // 에러 처리
-                }
-            })
-    }
 
     // 이름 변경까지 처리 가능한 메서드 추가
     fun updateIngredientWithNameChange(oldName: String, updatedIngredient: Ingredient) {
@@ -85,7 +69,6 @@ class IngredientViewModel : ViewModel() {
                         database.child(it).setValue(updatedIngredient)
                     }
                 }
-
                 override fun onCancelled(error: DatabaseError) {
                     // 에러 처리
                 }
